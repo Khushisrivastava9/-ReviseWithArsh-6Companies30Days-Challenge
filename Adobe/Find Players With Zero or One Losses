@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+        unordered_map<int,int> lostmatch;
+        for(auto &i:matches){
+            lostmatch[i[1]]++;
+        }
+        vector<int> allmatchwin;
+        vector<int> onematchlost;
+        for(auto it:matches){
+            if(lostmatch.find(it[0])==lostmatch.end()){
+                allmatchwin.push_back(it[0]);
+                lostmatch[it[0]]=2;//ye isiliye krrhe coz duplicacy na aaye kyuki agr dusra mila to vo map m ni hoga to phirse vector me jaega  isiliye isko 2 krrhe kyuki lost wale jo 1 h unko hi bss lena h
+            }
+            if(lostmatch[it[1]]==1){
+                onematchlost.push_back(it[1]);
+                lostmatch[it[1]]==2;
+            }
+        }
+        sort(begin(allmatchwin),end(allmatchwin));
+        sort(begin(onematchlost),end(onematchlost));
+        return {allmatchwin,onematchlost};
+    }
+};
