@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+class Solution {
+public:
+void kmpalgo(string str, string pat,vector<int> & ans){
+    int n=str.size();
+    int m=pat.size();
+    for(int i=0;i<n;i++){
+        if(pat[0]==str[i] && pat==str.substr(i,m)){
+            ans.push_back(i);
+        }
+    }
+}
+    vector<int> beautifulIndices(string s, string a, string b, int k) {
+        vector<int> i;
+        vector<int> j;
+        kmpalgo(s,a,i);//efficiently gets the index and it;s used for patter matching most efficient method
+        kmpalgo(s,b,j);
+        vector<int> ans;
+        int n=s.length();
+        for(int &p:i){
+            int leftlimit=max(0,p-k);
+            int rightlimit=min(n-1,p+k);
+            auto it=lower_bound(j.begin(),j.end(),leftlimit);
+            if(it!=j.end() && *it<=rightlimit){
+                ans.push_back(p);
+            }
+        }
+        return ans;
+    }
+};
