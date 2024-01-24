@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxSubarrayLength(vector<int>& nums, int k) {
+        unordered_map<int, int> frequency;
+        int left = 0, maxLen = 0;
+
+        for (int right = 0; right < nums.size(); ++right) {
+             frequency[nums[right]]++;
+
+        // Check if the frequency of any element exceeds k, and update left pointer accordingly
+        while (frequency[nums[right]]> k) {
+            frequency[nums[left]]--;
+            if (frequency[nums[left]] == 0) {
+                frequency.erase(nums[left]);
+            }
+            left++;
+        }
+
+        maxLen = max(maxLen, right - left +1);
+    }
+
+    return maxLen;
+    }
+};
