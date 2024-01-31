@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool asteroidsDestroyed(int mass, vector<int>& asteroids) {
+        priority_queue<int,vector<int>,greater<int>>  q;
+        for(auto i: asteroids){
+            q.push(i);
+        }
+        
+        long long m=mass;
+        while(!q.empty()){
+            if(m>=q.top()){
+                m+=q.top();
+                q.pop();
+            }
+            else
+            return false;
+        }
+        return true;
+    }
+};
