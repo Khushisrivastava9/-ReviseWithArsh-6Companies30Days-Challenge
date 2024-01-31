@@ -1,0 +1,73 @@
+/**
+ * // This is the MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * class MountainArray {
+ *   public:
+ *     int get(int index);
+ *     int length();
+ * };
+ */
+
+class Solution {
+public:
+int binaleft(MountainArray &mountainArr,int e,int s,int target){
+    while(s<=e){
+        int mid=s+(e-s)/2;
+        int val=mountainArr.get(mid);
+        if(val==target){
+            return mid;
+        }
+        else if(val>target){
+            e=mid-1;
+        }
+        else{
+            s=mid+1;
+        }
+    }
+    return -1;
+}
+
+int binaright(MountainArray &mountainArr,int e,int s,int target){
+    while(s<=e){
+        int mid=s+(e-s)/2;
+        int val=mountainArr.get(mid);
+        if(val==target){
+            return mid;
+        }
+        else if(val>target){
+            s=mid+1;
+        }
+        else{
+            e=mid-1;
+        }
+    }
+    return -1;
+}
+    int findInMountainArray(int target, MountainArray &mountainArr) {
+        int s=0;
+        int e=mountainArr.length()-1;
+        int mid;
+        while(s<e){
+            mid=s+(e-s)/2;
+            if(mountainArr.get(mid)<mountainArr.get(mid+1)){
+                s=mid+1;
+            }
+            else{
+                e=mid;
+            }
+        }
+        int ind=e;
+
+        int presentatleft=binaleft(mountainArr,ind,0,target);
+        int presatright=binaright(mountainArr,mountainArr.length()-1,ind,target);
+        if(presentatleft==presatright){
+            return presentatleft;
+        }
+        else if(presentatleft!=-1){
+            return presentatleft;
+        }
+        else {
+            return presatright;
+        }
+    }
+};
